@@ -5,7 +5,7 @@ interface IMap {
 
 const Map: React.FC<IMap> = ({ mapType, mapTypeControl = false }) => {
   return (
-    <div>
+    <div className="border-4 border-black">
       <h1>Maps</h1>
     </div>
   );

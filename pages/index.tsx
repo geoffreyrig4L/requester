@@ -1,9 +1,8 @@
 import type { NextPage } from "next";
-import Banner from "./components/banner";
-import Head from "next/head";
+import MyApp from "./_app";
 
 const Home: NextPage = () => {
-  return <div></div>;
+  return <MyApp />;
 };
 
 export default Home;

@@ -1,13 +1,12 @@
 import "../styles/globals.css";
-import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
 import { loadMapApi } from "./map/utils/GoogleMapsUtils";
 import Map from "./map/map";
 import Banner from "./components/banner";
-import TrainForm from "./components/form";
+import TrainForm from "./components/trainForm";
 import Head from "next/head";
 
-function MyApp({ Component, pageProps }: AppProps) {
+const MyApp = () => {
   const [scriptLoaded, setScriptLoaded] = useState(false);
   useEffect(() => {
     const googleMapScript = loadMapApi();
@@ -20,14 +19,15 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Requester SIDH</title>
       </Head>
-
       <Banner />
-      {scriptLoaded && (
-        <Map mapType={google.maps.MapTypeId.ROADMAP} mapTypeControl={true} />
-      )}
-      <TrainForm />
+      <div className="flex flex-row w-[96%] m-auto justify-between">
+        <TrainForm />
+        {scriptLoaded && (
+          <Map mapType={google.maps.MapTypeId.ROADMAP} mapTypeControl={true} />
+        )}
+      </div>
     </div>
   );
-}
+};
 
 export default MyApp;
