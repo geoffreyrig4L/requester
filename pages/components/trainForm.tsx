@@ -9,7 +9,7 @@ const Researcher: React.FC = () => {
   const labelCss = "w-[155px] p-2 font-semibold";
 
   return (
-    <div className=" flex flex-row bg-white rounded-xl">
+    <div className=" flex flex-row bg-white rounded-xl mr-3">
       <div className="h-[750px] w-[500px]">
         <Formik
           initialValues={{
@@ -70,7 +70,7 @@ const Researcher: React.FC = () => {
               </select>
             </span>
             <button
-              className="w-full p-2 rounded-lg bg-[#8DE8FE]"
+              className="w-full p-2 rounded-lg bg-[#8DE8FE] hover:ring-1 hover:ring-black"
               type="submit"
             >
               Rechercher
@@ -79,7 +79,7 @@ const Researcher: React.FC = () => {
         </Formik>
       </div>
       <div>
-        <button className="w-[20px] h-full bg-gray-300 text-center text-xl rounded-r-xl">
+        <button className="w-[20px] h-full bg-gray-300 border-l-[1px] border-gray-400 text-center text-xl rounded-r-xl">
           {">"}
         </button>
       </div>

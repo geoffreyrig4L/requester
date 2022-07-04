@@ -4,11 +4,7 @@ interface IMap {
 }
 
 const Map: React.FC<IMap> = ({ mapType, mapTypeControl = false }) => {
-  return (
-    <div className="border-4 border-black bg-white w-full">
-      <h1>Maps</h1>
-    </div>
-  );
+  return <div className="bg-white w-full rounded-xl h-[750px]"></div>;
 };
 
 export default Map;
