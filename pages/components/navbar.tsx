@@ -2,7 +2,7 @@ const NavBar: React.FC = () => {
   const liCss = "hover:border-b-8 border-[#8DE8FE] hover:text-[#8DE8FE]";
 
   return (
-    <ul className="flex flex-row justify-around w-full">
+    <ul className="flex flex-row justify-around w-full text-white">
       <li className={liCss}>Itinéraires</li>
       <li className={liCss}>
         informations

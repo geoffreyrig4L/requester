@@ -2,7 +2,7 @@ import NavBar from "./navbar";
 
 const Banner: React.FC = () => {
   return (
-    <div className="flex flex-row w-100% h-20 text-center text-xl">
+    <div className="flex flex-row w-100% h-20 text-center text-xl border-b-2 border-[#8DE8FE] mb-4">
       <h1 className="text-2xl w-[200px] font-semibold text-[#8DE8FE]">
         Requester SIDH
       </h1>
