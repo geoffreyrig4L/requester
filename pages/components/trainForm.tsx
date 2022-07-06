@@ -1,7 +1,20 @@
 import { Field, Formik, Form } from "formik";
+import { Dispatch, SetStateAction, useCallback } from "react";
+import api from "../services/api";
 
 const Researcher: React.FC = () => {
-  const handleFormSubmit = () => {};
+  const handleFormSubmit = useCallback(
+    async ({ depart, arrive, date, heure, timeslot }) => {
+      try {
+        await api.get(
+          `http://integration-idh.sncfvoyages-dev.aws.vsct.fr:55541/sidh1i/itineraries/${depart}/${arrive}/${date}/${heure}/${timeslot}`
+        );
+      } catch (e) {
+        return { error: e };
+      }
+    },
+    [arrive, depart, date, heure, timeslot]
+  );
 
   const spanCss = "flex flex-row";
   const fieldCss =
@@ -16,8 +29,9 @@ const Researcher: React.FC = () => {
             depart: "",
             arrive: "",
             date: "",
-            time: "",
+            heure: "",
             profil: "",
+            timeslot: "",
           }}
           onSubmit={handleFormSubmit}
         >
@@ -61,6 +75,10 @@ const Researcher: React.FC = () => {
             <span className={spanCss}>
               <label className={labelCss}>Heure</label>
               <Field className={fieldCss} type="time" name="heure" />
+            </span>
+            <span className={spanCss}>
+              <label className={labelCss}>Timeslot</label>
+              <Field className={fieldCss} type="text" name="timeslot" />
             </span>
             <span className={spanCss}>
               <label className={labelCss}>Profil</label>
