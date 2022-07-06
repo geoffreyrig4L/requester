@@ -2,39 +2,43 @@ import { Field, Formik, Form } from "formik";
 import { Dispatch, SetStateAction, useCallback } from "react";
 import api from "../services/api";
 
-const Researcher: React.FC = () => {
-  const handleFormSubmit = useCallback(
-    async ({ depart, arrive, date, heure, timeslot }) => {
-      try {
-        await api.get(
-          `http://integration-idh.sncfvoyages-dev.aws.vsct.fr:55541/sidh1i/itineraries/${depart}/${arrive}/${date}/${heure}/${timeslot}`
-        );
-      } catch (e) {
-        return { error: e };
-      }
-    },
-    [arrive, depart, date, heure, timeslot]
-  );
+interface MyFormValues {
+  depart: string;
+  arrive: string;
+  date: Date;
+  heure: Date;
+  timeslot: string;
+}
 
+const Researcher: React.FC = () => {
   const spanCss = "flex flex-row";
   const fieldCss =
     "bg-gray-200 p-2 rounded-md focus:ring-2 focus:outline-none focus:ring-offset focus:ring-[#8DE8FE] w-[220px] pl-4";
   const labelCss = "w-[155px] p-2 font-semibold";
 
+  const initialValues: MyFormValues = {
+    depart: "",
+    arrive: "",
+    date: new Date(),
+    heure: new Date(),
+    timeslot: "",
+  };
+
+  const handleFormSubmit = useCallback(async (initialValues: MyFormValues) => {
+    try {
+      console.log(initialValues); /*
+      await api.get(
+        `http://integration-idh.sncfvoyages-dev.aws.vsct.fr:55541/sidh1i/itineraries/${initialValues.depart}/${initialValues.arrive}/${initialValues.date}/${initialValues.heure}/${initialValues.timeslot}`
+      );*/
+    } catch (e) {
+      return { error: e };
+    }
+  }, []);
+
   return (
     <div className=" flex flex-row bg-white rounded-xl mr-3">
       <div className="h-[750px] w-[500px]">
-        <Formik
-          initialValues={{
-            depart: "",
-            arrive: "",
-            date: "",
-            heure: "",
-            profil: "",
-            timeslot: "",
-          }}
-          onSubmit={handleFormSubmit}
-        >
+        <Formik initialValues={initialValues} onSubmit={handleFormSubmit}>
           <Form className="flex flex-col p-12 justify-between h-full m-auto w-full">
             <div className="flex flex-row items-center">
               <div className="flex flex-col justify-between h-[85px] mr-2">

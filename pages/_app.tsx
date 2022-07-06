@@ -5,17 +5,11 @@ import Map from "./map/map";
 import Banner from "./components/banner";
 import TrainForm from "./components/trainForm";
 import Head from "next/head";
-import { Dispatch, SetStateAction } from "react";
 import TrainResults from "./components/trainResults";
 
-interface DisplayResultAttributes {
-  displayResult: boolean;
-  setDisplayResult?: Dispatch<SetStateAction<boolean>>;
-}
-
 const MyApp = () => {
-  const [scriptLoaded, setScriptLoaded] = useState(false);
-  const [displayResult, setDisplayResult] = useState(false);
+  const [scriptLoaded, setScriptLoaded] = useState<boolean>(false);
+  const [displayResult, setDisplayResult] = useState<boolean>(false);
   useEffect(() => {
     const googleMapScript = loadMapApi();
     googleMapScript.addEventListener("load", function () {
