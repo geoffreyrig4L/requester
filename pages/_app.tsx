@@ -10,12 +10,14 @@ import TrainResults from "./components/trainResults";
 const MyApp = () => {
   const [scriptLoaded, setScriptLoaded] = useState<boolean>(false);
   const [displayResult, setDisplayResult] = useState<boolean>(false);
+
   useEffect(() => {
     const googleMapScript = loadMapApi();
     googleMapScript.addEventListener("load", function () {
       setScriptLoaded(true);
     });
   }, []);
+
   return (
     <div>
       <Head>
@@ -24,7 +26,7 @@ const MyApp = () => {
       <Banner />
       <div className="w-[96%] m-auto">
         <div className="flex flex-row justify-between mb-4">
-          <TrainForm />
+          <TrainForm displayResult={true} setDisplayResult={setDisplayResult} />
           {scriptLoaded && (
             <Map
               mapType={google.maps.MapTypeId.ROADMAP}
@@ -32,7 +34,7 @@ const MyApp = () => {
             />
           )}
         </div>
-        <TrainResults />
+        <TrainResults displayResult={true} />
       </div>
     </div>
   );

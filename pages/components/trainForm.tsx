@@ -1,5 +1,7 @@
 import { Field, Formik, Form } from "formik";
-import { Dispatch, SetStateAction, useCallback } from "react";
+import { Dispatch, SetStateAction } from "react";
+import moment from "moment";
+import { useState, useCallback, useEffect } from "react";
 import api from "../services/api";
 
 interface MyFormValues {
@@ -10,28 +12,43 @@ interface MyFormValues {
   timeslot: string;
 }
 
-const Researcher: React.FC = () => {
+interface IProps {
+  setDisplayResult: Dispatch<SetStateAction<boolean>>;
+  displayResult: boolean;
+}
+
+const Researcher: React.FC<IProps> = (props: IProps) => {
+  const [itineraries, setItineraries] = useState<[]>([]);
+
   const spanCss = "flex flex-row";
   const fieldCss =
     "bg-gray-200 p-2 rounded-md focus:ring-2 focus:outline-none focus:ring-offset focus:ring-[#8DE8FE] w-[220px] pl-4";
   const labelCss = "w-[155px] p-2 font-semibold";
 
   const initialValues: MyFormValues = {
-    depart: "",
-    arrive: "",
+    depart: "FRPAR",
+    arrive: "FRNTE",
     date: new Date(),
     heure: new Date(),
-    timeslot: "",
+    timeslot: "1440",
   };
 
   const handleFormSubmit = useCallback(async (initialValues: MyFormValues) => {
+    props.setDisplayResult(!props.displayResult);
+    const date: string = moment(initialValues.date)
+      .format("YYYYMMDD")
+      .toString();
+    /*const heure: string =
+      initialValues.heure.getHours().toString() +
+      initialValues.heure.getMinutes().toString();*/
     try {
-      console.log(initialValues); /*
-      await api.get(
-        `http://integration-idh.sncfvoyages-dev.aws.vsct.fr:55541/sidh1i/itineraries/${initialValues.depart}/${initialValues.arrive}/${initialValues.date}/${initialValues.heure}/${initialValues.timeslot}`
-      );*/
+      await api
+        .get(
+          `http://integration-idh.sncfvoyages-dev.aws.vsct.fr:55541/sidh1i/itineraries/${initialValues.depart}/${initialValues.arrive}/${date}/1700/${initialValues.timeslot}`
+        )
+        .then((response) => console.log(response.data));
     } catch (e) {
-      return { error: e };
+      console.log(e);
     }
   }, []);
 

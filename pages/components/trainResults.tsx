@@ -1,7 +1,9 @@
-const trainResults: React.FC = () => {
-  const displayResult = true;
+interface IProps {
+  displayResult: boolean;
+}
 
-  return displayResult ? (
+const trainResults: React.FC<IProps> = (props: IProps) => {
+  return !props.displayResult ? (
     <div className="rounded bg-white w-full">
       <h1>results</h1>
     </div>
