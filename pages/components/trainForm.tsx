@@ -52,6 +52,12 @@ const Researcher: React.FC<IProps> = (props: IProps) => {
     }
   }, []);
 
+  function reverseOD(nouveauDepart: string, nouvelArrive: string) {
+    const ancienDepart = nouveauDepart;
+    initialValues.depart = nouvelArrive;
+    initialValues.arrive = ancienDepart;
+  }
+
   return (
     <div className=" flex flex-row bg-white rounded-xl mr-3">
       <div className="h-[750px] w-[500px]">
@@ -78,7 +84,12 @@ const Researcher: React.FC<IProps> = (props: IProps) => {
                   />
                 </span>
               </div>
-              <button className="bg-[#8DE8FE] rounded-full text-xl font-extrabold h-[33px] w-[33px]">
+              <button
+                onClick={() =>
+                  reverseOD(initialValues.depart, initialValues.arrive)
+                }
+                className="bg-[#8DE8FE] rounded-full text-xl font-extrabold h-[33px] w-[33px]"
+              >
                 ↕
               </button>
             </div>
