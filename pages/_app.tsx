@@ -11,6 +11,7 @@ const MyApp = () => {
   const [scriptLoaded, setScriptLoaded] = useState<boolean>(false);
   const [displayResult, setDisplayResult] = useState<boolean>(false);
   const [itineraries, setItineraries] = useState<[]>([]);
+  const [mapOrSettings, setMapOrSettings] = useState<string>("map");
 
   useEffect(() => {
     const googleMapScript = loadMapApi();
@@ -32,11 +33,15 @@ const MyApp = () => {
             setDisplayResult={setDisplayResult}
             itineraries={itineraries}
             setItineraries={setItineraries}
+            mapOrSettings={mapOrSettings}
+            setMapOrSettings={setMapOrSettings}
           />
           {scriptLoaded && (
             <Map
               mapType={google.maps.MapTypeId.ROADMAP}
               mapTypeControl={true}
+              mapOrSettings={mapOrSettings}
+              setMapOrSettings={setMapOrSettings}
             />
           )}
         </div>

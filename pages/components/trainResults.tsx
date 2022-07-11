@@ -5,7 +5,7 @@ interface IProps {
 const TrainResults: React.FC<IProps> = (props: IProps) => {
   if (props.displayResult)
     return (
-      <div className="rounded bg-white w-full">
+      <div className="bg-white w-full p-12 rounded-xl mb-6">
         <h1>results</h1>
       </div>
     );

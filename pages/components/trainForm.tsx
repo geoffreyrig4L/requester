@@ -17,6 +17,8 @@ interface IProps {
   setDisplayResult: Dispatch<SetStateAction<boolean>>;
   itineraries: [];
   setItineraries: Dispatch<SetStateAction<[]>>;
+  mapOrSettings: string;
+  setMapOrSettings: Dispatch<SetStateAction<string>>;
 }
 
 const Researcher: React.FC<IProps> = (props: IProps) => {
@@ -61,6 +63,14 @@ const Researcher: React.FC<IProps> = (props: IProps) => {
       nouveauDepart;
     (document.getElementById("arrive") as HTMLInputElement).innerText =
       nouvelArrive;
+  }
+
+  function showMapOrSettings() {
+    if (props.mapOrSettings === "map") {
+      props.setMapOrSettings("settings");
+    } else {
+      props.setMapOrSettings("map");
+    }
   }
 
   return (
@@ -136,8 +146,11 @@ const Researcher: React.FC<IProps> = (props: IProps) => {
         </Formik>
       </div>
       <div>
-        <button className="w-[20px] h-full bg-gray-300 border-l-[1px] border-gray-400 text-center text-xl rounded-r-xl">
-          {">"}
+        <button
+          className="w-[20px] h-full bg-gray-300 border-l-[1px] border-gray-400 text-center text-xl rounded-r-xl"
+          onClick={() => showMapOrSettings()}
+        >
+          {props.mapOrSettings === "map" ? ">" : "<"}
         </button>
       </div>
     </div>
