@@ -1,7 +1,7 @@
 import { Field, Formik, Form } from "formik";
 import { Dispatch, SetStateAction } from "react";
 import moment from "moment";
-import { useState, useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import api from "../services/api";
 
 interface MyFormValues {
@@ -13,13 +13,13 @@ interface MyFormValues {
 }
 
 interface IProps {
-  setDisplayResult: Dispatch<SetStateAction<boolean>>;
   displayResult: boolean;
+  setDisplayResult: Dispatch<SetStateAction<boolean>>;
+  itineraries: [];
+  setItineraries: Dispatch<SetStateAction<[]>>;
 }
 
 const Researcher: React.FC<IProps> = (props: IProps) => {
-  const [itineraries, setItineraries] = useState<[]>([]);
-
   const spanCss = "flex flex-row";
   const fieldCss =
     "bg-gray-200 p-2 rounded-md focus:ring-2 focus:outline-none focus:ring-offset focus:ring-[#8DE8FE] w-[220px] pl-4";
@@ -33,29 +33,34 @@ const Researcher: React.FC<IProps> = (props: IProps) => {
     timeslot: "1440",
   };
 
-  const handleFormSubmit = useCallback(async (initialValues: MyFormValues) => {
-    props.setDisplayResult(!props.displayResult);
-    const date: string = moment(initialValues.date)
-      .format("YYYYMMDD")
-      .toString();
-    /*const heure: string =
-      initialValues.heure.getHours().toString() +
-      initialValues.heure.getMinutes().toString();*/
-    try {
+  const handleFormSubmit = useCallback(
+    async (initialValues: MyFormValues) => {
+      props.setDisplayResult(true);
+      console.log(props.displayResult);
+      const date: string = moment(initialValues.date)
+        .format("YYYYMMDD")
+        .toString();
+      const heure: string =
+        initialValues.heure.getHours().toString() +
+        initialValues.heure.getMinutes().toString();
+      /*try {
       await api
         .get(
-          `http://integration-idh.sncfvoyages-dev.aws.vsct.fr:55541/sidh1i/itineraries/${initialValues.depart}/${initialValues.arrive}/${date}/1700/${initialValues.timeslot}`
+          `http://integration-idh.sncfvoyages-dev.aws.vsct.fr:55541/sidh1i/itineraries/${initialValues.depart}/${initialValues.arrive}/${date}/${heure}/${initialValues.timeslot}`
         )
         .then((response) => console.log(response.data));
     } catch (e) {
       console.log(e);
-    }
-  }, []);
+    }*/
+    },
+    [props]
+  );
 
-  function reverseOD(nouveauDepart: string, nouvelArrive: string) {
-    const ancienDepart = nouveauDepart;
-    initialValues.depart = nouvelArrive;
-    initialValues.arrive = ancienDepart;
+  function reverseOD(nouvelArrive: string, nouveauDepart: string) {
+    (document.getElementById("depart") as HTMLInputElement).innerText =
+      nouveauDepart;
+    (document.getElementById("arrive") as HTMLInputElement).innerText =
+      nouvelArrive;
   }
 
   return (
@@ -72,6 +77,7 @@ const Researcher: React.FC<IProps> = (props: IProps) => {
                     type="text"
                     name="depart"
                     placeholder="Paris"
+                    id="depart"
                   />
                 </span>
                 <span className={spanCss}>
@@ -81,6 +87,7 @@ const Researcher: React.FC<IProps> = (props: IProps) => {
                     type="text"
                     name="arrive"
                     placeholder="Lyon"
+                    id="arrive"
                   />
                 </span>
               </div>
