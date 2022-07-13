@@ -32,27 +32,20 @@ const Researcher: React.FC<IProps> = (props: IProps) => {
     arrive: "FRNTE",
     date: new Date(),
     heure: new Date(),
-    timeslot: "1440",
+    timeslot: "",
   };
 
   const handleFormSubmit = useCallback(
-    async (initialValues: MyFormValues) => {
+    async ({ depart, arrive, date, heure, timeslot }: MyFormValues) => {
       props.setDisplayResult(true);
-      const date: string = moment(initialValues.date)
-        .format("YYYYMMDD")
-        .toString();
-
-      console.log(initialValues.heure.getHours.toString());
-      const heure: string =
-        initialValues.heure.getHours.toString() +
-        initialValues.heure.getMinutes.toString();
-
+      const dateParsed: string = moment(date).format("YYYYMMDD").toString();
+      const heureParsed: string = heure.toString().replace(":", "");
       try {
         await api
           .get(
-            `http://integration-idh.sncfvoyages-dev.aws.vsct.fr:55541/sidh1i/itineraries/${initialValues.depart}/${initialValues.arrive}/${date}/${heure}/${initialValues.timeslot}`
+            `http://integration-idh.sncfvoyages-dev.aws.vsct.fr:55541/sidh1i/itineraries/${depart}/${arrive}/${dateParsed}/${heureParsed}/${timeslot}`
           )
-          .then((response) => console.log(response.data));
+          .then((response) => props.setItineraries(response.data));
       } catch (e) {
         console.log(e);
       }
@@ -85,6 +78,7 @@ const Researcher: React.FC<IProps> = (props: IProps) => {
                 <span className={spanCss}>
                   <label className={labelCss}>Départ</label>
                   <Field
+                    required
                     className={fieldCss}
                     type="text"
                     name="depart"
@@ -95,6 +89,7 @@ const Researcher: React.FC<IProps> = (props: IProps) => {
                 <span className={spanCss}>
                   <label className={labelCss}>Arrivé</label>
                   <Field
+                    required
                     className={fieldCss}
                     type="text"
                     name="arrive"
@@ -121,11 +116,11 @@ const Researcher: React.FC<IProps> = (props: IProps) => {
             </span>
             <span className={spanCss}>
               <label className={labelCss}>Date</label>
-              <Field className={fieldCss} type="date" name="date" />
+              <Field required className={fieldCss} type="date" name="date" />
             </span>
             <span className={spanCss}>
               <label className={labelCss}>Heure</label>
-              <Field className={fieldCss} type="time" name="heure" />
+              <Field required className={fieldCss} type="time" name="heure" />
             </span>
             <span className={spanCss}>
               <label className={labelCss}>Timeslot</label>

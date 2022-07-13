@@ -44,7 +44,7 @@ const MyApp = () => {
             />
           }
         </div>
-        <TrainResults displayResult={displayResult} />
+        <TrainResults displayResult={displayResult} itineraries={itineraries} />
       </div>
     </div>
   );
