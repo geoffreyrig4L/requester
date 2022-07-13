@@ -1,24 +1,24 @@
 import "../styles/globals.css";
 import { useEffect, useState } from "react";
 import { loadMapApi } from "./map/utils/GoogleMapsUtils";
-import Map from "./map/map";
+import MapOrSettings from "./components/mapOrSetting";
 import Banner from "./components/banner";
 import TrainForm from "./components/trainForm";
 import Head from "next/head";
 import TrainResults from "./components/trainResults";
 
 const MyApp = () => {
-  const [scriptLoaded, setScriptLoaded] = useState<boolean>(false);
+  //const [scriptLoaded, setScriptLoaded] = useState<boolean>(false);
   const [displayResult, setDisplayResult] = useState<boolean>(false);
   const [itineraries, setItineraries] = useState<[]>([]);
   const [mapOrSettings, setMapOrSettings] = useState<string>("map");
 
-  useEffect(() => {
+  /*useEffect(() => {
     const googleMapScript = loadMapApi();
     googleMapScript.addEventListener("load", function () {
       setScriptLoaded(true);
     });
-  }, []);
+  }, []);*/
 
   return (
     <div>
@@ -36,14 +36,13 @@ const MyApp = () => {
             mapOrSettings={mapOrSettings}
             setMapOrSettings={setMapOrSettings}
           />
-          {scriptLoaded && (
-            <Map
-              mapType={google.maps.MapTypeId.ROADMAP}
-              mapTypeControl={true}
+          {
+            /*scriptLoaded &&*/ <MapOrSettings
+              /*mapType={google.maps.MapTypeId.ROADMAP}
+          mapTypeControl={true}*/
               mapOrSettings={mapOrSettings}
-              setMapOrSettings={setMapOrSettings}
             />
-          )}
+          }
         </div>
         <TrainResults displayResult={displayResult} />
       </div>

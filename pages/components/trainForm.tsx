@@ -38,22 +38,24 @@ const Researcher: React.FC<IProps> = (props: IProps) => {
   const handleFormSubmit = useCallback(
     async (initialValues: MyFormValues) => {
       props.setDisplayResult(true);
-      console.log(props.displayResult);
       const date: string = moment(initialValues.date)
         .format("YYYYMMDD")
         .toString();
+
+      console.log(initialValues.heure.getHours.toString());
       const heure: string =
-        initialValues.heure.getHours().toString() +
-        initialValues.heure.getMinutes().toString();
-      /*try {
-      await api
-        .get(
-          `http://integration-idh.sncfvoyages-dev.aws.vsct.fr:55541/sidh1i/itineraries/${initialValues.depart}/${initialValues.arrive}/${date}/${heure}/${initialValues.timeslot}`
-        )
-        .then((response) => console.log(response.data));
-    } catch (e) {
-      console.log(e);
-    }*/
+        initialValues.heure.getHours.toString() +
+        initialValues.heure.getMinutes.toString();
+
+      try {
+        await api
+          .get(
+            `http://integration-idh.sncfvoyages-dev.aws.vsct.fr:55541/sidh1i/itineraries/${initialValues.depart}/${initialValues.arrive}/${date}/${heure}/${initialValues.timeslot}`
+          )
+          .then((response) => console.log(response.data));
+      } catch (e) {
+        console.log(e);
+      }
     },
     [props]
   );
@@ -127,7 +129,11 @@ const Researcher: React.FC<IProps> = (props: IProps) => {
             </span>
             <span className={spanCss}>
               <label className={labelCss}>Timeslot</label>
-              <Field className={fieldCss} type="text" name="timeslot" />
+              <select className={fieldCss} name="timeslot">
+                <option>0</option>
+                <option>1440</option>
+                <option>2880</option>
+              </select>
             </span>
             <span className={spanCss}>
               <label className={labelCss}>Profil</label>
